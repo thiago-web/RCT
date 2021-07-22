@@ -8,6 +8,7 @@
 
   $data1 = '';
   $data2 = '';
+  $data3 = '';
 
   //query to get data from the table
   $sql = "SELECT * FROM cancelamentos ";
@@ -17,11 +18,12 @@
   while ($row = mysqli_fetch_array($result)) {
 
     $data1 = $data1 . '"'. $row['datax'].'",';
-    $data2 = $data2 . '"'. $row['datay'] .'",';
+    $data2 = $data2 . '"'. $row['datay'].'",';
+    $data3 = $data3 . '"'. $row['diff_diaria'].'",';
   }
-
   $data1 = trim($data1,",");
   $data2 = trim($data2,",");
+  $data3 = trim($data3,",");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -58,7 +60,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Página Inicial</a>
+        <a href="#" class="nav-link">Página Inicial</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Sugestões</a>
@@ -235,9 +237,27 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="#" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> Painel</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="#" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Status</p>
+                  <p>Gráfico Semanal</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gráfico Mensal</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gráfico Anual</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -280,12 +300,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Painel</h1>
+            <h1 class="m-0">Gráfico Semanal</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#"></a> Página Inicial</li>
-              <li class="breadcrumb-item active">Painel</li>
+              <li class="breadcrumb-item active">Gráfico Semanal</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -301,38 +321,44 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Cancelamentos</h3>
-                  <a href="javascript:void(0);">Ver gráfico ampliado</a>
+                  <h3 class="card-title">Cancelamentos na semana</h3>
+                  <!-- <a href="javascript:void(0);">Ver gráfico ampliado</a> -->
                 </div>
               </div>
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">1000</span>
-                    <span>Ao longo do tempo</span>
+                    <span class="text-bold text-lg">Diferença referente a semana anterior:</span>
+                    <!-- <span>Ao longo do tempo</span> -->
+                  </p>
+                  <p class="ml-auto d-flex flex-column text-left">
+                    <span class="text-success">
+                      <i class="fas fa-arrow-down"></i> (%)
+                    </span>
+                    <span class="text-muted"></span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> (Diferença%)
+                    <span class="text-danger">
+                      <i class="fas fa-arrow-up"></i> (%)
                     </span>
-                    <span class="text-muted">Desde a Semana Anterior</span>
+                    <span class="text-muted">Cancelados na semana</span>
                   </p>
                 </div>
                 
                 <!-- /.d-flex -->
 
                 <div class="position-relative mb-4">
-                  <canvas id="myChart" height="100" ></canvas>
+                  <canvas id="myChart" height="80" ></canvas>
                 </div>
 
                 <div class="d-flex flex-row justify-content-end">
-                  <span class="mr-2">
+                  <!-- <span class="mr-2">
                     <i class="fas fa-square text-primary"></i> Esta Semana
                   </span>
 
                   <span>
                     <i class="fas fa-square text-gray"></i> Semana Anterior
-                  </span>
+                  </span> -->
                 </div>
               </div>
             </div>
@@ -351,10 +377,10 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; <?php echo(date('Y')); ?> <a href="#">Thiago Henrique</a>.</strong>
+    <strong>Copyright &copy; <?php echo(date('Y')); ?> por <a href="#">Thiago Henrique</a>.</strong>
     Todos os direitos reservados.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0
+      <b>Versão</b> 1.0.0
     </div>
   </footer>
 </div>
@@ -376,38 +402,49 @@
 <!-- Script do banco -->
 <script>
         var ctx = document.getElementById("myChart").getContext('2d');
+          var xValues = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
+          var yCan = [<?php echo $data1 ?>];
+          var yMet = [<?php echo $data2 ?>];
+          var yDif = [<?php echo $data3 ?>];
           var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Seg','Ter','Qua','Qui','Sex','Sab', 'Dom'],
-                datasets: 
-                [{
-                    label: 'Cancelamentos',
-                    data: [<?php echo $data1; ?>],
-                    backgroundColor: 'transparent',
-                    borderColor: '#007bff',
-                    pointBorderColor: '#007bff',
-                    pointBackgroundColor: '#007bff',
-                    fill: false,
-                        borderWidth: 2
-                },
+          type: 'bar',
+          data: {
+              labels: xValues,
+              datasets: 
+              [
+              {
+                label: 'Cancelamentos',
+                backgroundColor: 'red',
+                data: yCan
 
-                {
-                  label: 'Data 2',
-                    data: [<?php echo $data2; ?>],
-                    backgroundColor: 'tansparent',
-                borderColor: '#ced4da',
-                pointBorderColor: '#ced4da',
-                pointBackgroundColor: '#ced4da',
-                fill: false,
-                    borderWidth: 2  
-                }]
+              },
+              {
+                label: 'Meta',
+                backgroundColor: 'green',
+                data: yMet
+              },
+              {
+
+                label: 'Total',
+                backgroundColor: '#ff8000',
+                data: yDif
+              }
+              
+              ]
             },
-         
+
             options: {
-                scales: {scales:{yAxes: [{beginAtZero: false}], xAxes: [{autoskip: true, maxTicketsLimit: 20}]}},
+                scales: {scales:{yAxes: [{beginAtZero: false}], xAxes: [{autoskip: true, maxTicketsLimit: 5}]}},
                 tooltips:{mode: 'index'},
-                legend:{display: true, position: 'bottom', labels: {fontColor: 'black', fontSize: 15}}
+                legend: {
+                  display: true, 
+                  labels: {fontColor: 'rgb()', fontSize: 16, position: 'bottom'}
+                },
+                  title: {
+                    display: true,
+                    text: "Cancelamentos na Semana"
+                  } 
+                
             }
         });
       </script>
