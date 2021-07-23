@@ -1,29 +1,31 @@
 <?php
-  /* Database connection settings */
-  $host = 'localhost';
-  $user = 'root';
-  $pass = '';
-  $db = 'rct_teleson';
-  $mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
+session_start();
+include('dist/banco/control-login.php');
+/* Database connection settings */
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+$db = 'rct_teleson';
+$mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
 
-  $data1 = '';
-  $data2 = '';
-  $data3 = '';
+$data1 = '';
+$data2 = '';
+$data3 = '';
 
-  //query to get data from the table
-  $sql = "SELECT * FROM cancelamentos ";
-    $result = mysqli_query($mysqli, $sql);
+//query to get data from the table
+$sql = "SELECT * FROM cancelamentos ";
+  $result = mysqli_query($mysqli, $sql);
 
-  //loop through the returned data
-  while ($row = mysqli_fetch_array($result)) {
+//loop through the returned data
+while ($row = mysqli_fetch_array($result)) {
 
-    $data1 = $data1 . '"'. $row['datax'].'",';
-    $data2 = $data2 . '"'. $row['datay'].'",';
-    $data3 = $data3 . '"'. $row['diff_diaria'].'",';
-  }
-  $data1 = trim($data1,",");
-  $data2 = trim($data2,",");
-  $data3 = trim($data3,",");
+  $data1 = $data1 . '"'. $row['datax'].'",';
+  $data2 = $data2 . '"'. $row['datay'].'",';
+  $data3 = $data3 . '"'. $row['diff_diaria'].'",';
+}
+$data1 = trim($data1,",");
+$data2 = trim($data2,",");
+$data3 = trim($data3,",");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -40,6 +42,8 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Icone do Site -->
+  <link rel = "shortcut icon" type = "imagem/x-icon" href = "dist/img/icones/r.ico"/>
 </head>
 <!--
 `body` tag options:
@@ -193,9 +197,12 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="dist/img/.png" alt="RCT Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a href="index.html" class="brand-link">
+      <img src="dist/img/r.png" alt="RCT Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">RCT</span>
+    </a>  
+    <a href="dist/banco/logout.php" class="brand-link">
+      <span class=" font-weight-light">Sair</span>
     </a>
 
     <!-- Sidebar -->
@@ -237,7 +244,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link ">
+                <a href="pages/cancelamento/painel.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p> Painel</p>
                 </a>
@@ -321,34 +328,70 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Cancelamentos na semana</h3>
+                  <!-- <h3 class="card-title">Cancelamentos na semana</h3> -->
                   <!-- <a href="javascript:void(0);">Ver gráfico ampliado</a> -->
                 </div>
               </div>
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">Diferença referente a semana anterior:</span>
-                    <!-- <span>Ao longo do tempo</span> -->
+                    <span class="text-right text-lg">Gráfico Semanal</span>
+                    <span></span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-left">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-down"></i> (%)
+                    <span class="text-primary">
+                        <i class="fas fa-calendar" aria-hidden="true"></i>
+                        <?php
+                        echo (date('d/m/Y'));
+                        ?>
                     </span>
-                    <span class="text-muted"></span>
+                    <span class="text-muted">Data Atual</span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-danger">
-                      <i class="fas fa-arrow-up"></i> (%)
+                    <span class="text-primary">
+                      <i class="fas fa-calendar-week" aria-hidden="true"></i> 
+                      <?php 
+
+                        $sem = date('w'); 
+                        if($sem == '1'){
+                            $sem = 'Segunda-Feira';
+                        }
+
+                        if($sem == '2'){
+                            $sem = 'Terça-Feira';   
+                        }
+
+                        if($sem == '3'){
+                            $sem = 'Quarta-Feira';
+                        }
+
+                        if($sem == '4'){
+                            $sem = 'Quinta-Feira';
+                        }
+
+                        if($sem == '5'){
+                            $sem = 'Sexta-Feira';
+                        }
+
+                        if($sem == '6'){
+                            $sem = 'Sábado';
+                        }
+
+                        if($sem == '0'){
+                            $sem = 'Domingo';
+                        }
+
+                       echo($sem); 
+                    ?>
                     </span>
-                    <span class="text-muted">Cancelados na semana</span>
+                    <span class="text-muted">Dia na semana</span>
                   </p>
                 </div>
                 
                 <!-- /.d-flex -->
 
                 <div class="position-relative mb-4">
-                  <canvas id="myChart" height="80" ></canvas>
+                  <canvas id="myChart" height="140" ></canvas>
                 </div>
 
                 <div class="d-flex flex-row justify-content-end">
@@ -377,7 +420,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; <?php echo(date('Y')); ?> por <a href="#">Thiago Henrique</a>.</strong>
+    <strong>Copyright &copy; <?php echo(date('Y')); ?></strong>. Desenvolvido por <a href="#">Thiago Henrique</a>.
     Todos os direitos reservados.
     <div class="float-right d-none d-sm-inline-block">
       <b>Versão</b> 1.0.0
@@ -425,7 +468,7 @@
               },
               {
 
-                label: 'Total',
+                label: 'Média',
                 backgroundColor: '#ff8000',
                 data: yDif
               }

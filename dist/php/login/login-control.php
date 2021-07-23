@@ -13,8 +13,6 @@ $result_login = mysqli_query($conect, $query_login);
 //CRIAMOS UMA VARIAVEL LINHA QUE RECEBE VALOR BOOLEAN
 $row_login = mysqli_num_rows($result_login);
 
-echo $usuario;
-echo $senha;
 
 // REDIRECIONAMENTO DO USUÁRIO
 if ($row_login == 1) {
@@ -23,8 +21,9 @@ if ($row_login == 1) {
 		header('location:../sws-admin/index.php');
 		exit();
 	} else {
+		$_SESSION['usuario'] = $usuario;
 		$_SESSION['logado']      = true;
-		header('location: ../../../painel.php');
+		header('location: ../../../pages/cancelamento/painel.php');
 		exit();
 	}
 }

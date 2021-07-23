@@ -26,7 +26,7 @@
   <div class="lockscreen-item">
     <!-- lockscreen image -->
     <div class="lockscreen-image">
-      <img src="dist/img/logoTeleson.png" alt="User Image">
+      <img src="dist/img/r.png" alt="User Image">
     </div>
     <!-- lockscreen credentials (contains the form) -->
     <form action="dist/php/login/login-control.php" method="POST" class="lockscreen-credentials">
@@ -57,7 +57,7 @@
       </div>
     <?php
     unset($_SESSION['nao_autenticado']);
-    session_destroy();
+    // session_destroy();
     }
     ?>
     Entre com a senha padrão para iniciar a sessão.
