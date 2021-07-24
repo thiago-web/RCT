@@ -7,7 +7,8 @@ $usuario = 'teleson';
 $senha   = $_POST['senha'];
 
 // QUERY DO LOGIN
-$query_login = "SELECT usuario, senha FROM usuarios WHERE usuario = '{$usuario}' AND senha = md5('{$senha}')";
+$query_login = "SELECT usuario, senha FROM usuarios WHERE usuario = '{$usuario}' 
+AND senha = md5('{$senha}')";
 //RESGATA O RESULTADO DA QUERY NA VARIAVEL
 $result_login = mysqli_query($conect, $query_login);
 //CRIAMOS UMA VARIAVEL LINHA QUE RECEBE VALOR BOOLEAN
@@ -23,7 +24,7 @@ if ($row_login == 1) {
 	} else {
 		$_SESSION['usuario'] = $usuario;
 		$_SESSION['logado']      = true;
-		header('location: ../../../pages/cancelamento/painel.php');
+		header('location: ../../../grafico_semanal.php');
 		exit();
 	}
 }

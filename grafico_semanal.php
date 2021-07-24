@@ -64,7 +64,7 @@ $data3 = trim($data3,",");
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Página Inicial</a>
+        <a href="grafico_semanal.php" class="nav-link">Página Inicial</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Sugestões</a>
@@ -267,30 +267,6 @@ $data3 = trim($data3,",");
                   <p>Gráfico Anual</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/uplot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>uPlot</p>
-                </a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -335,9 +311,20 @@ $data3 = trim($data3,",");
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                    <span class="text-right text-lg">Gráfico Semanal</span>
-                    <span></span>
+                    <div class="form-inline">
+                      <div class="input-group col-md-8" >
+                        <input readonly="" value="Atualizar" class="form-control form-control-sidebar" type="search" placeholder="Procurar" aria-label="Procurar">
+                        <div class="input-group-append">
+                          <button  class="btn btn-primary" 
+                          onclick="window.location.reload();">
+                            <!-- <i class="fas fa-refresh fa-fw"></i> -->
+                            <i class="fa fa-redo-alt" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </p>
+                  <hr>
                   <p class="ml-auto d-flex flex-column text-left">
                     <span class="text-primary">
                         <i class="fas fa-calendar" aria-hidden="true"></i>
@@ -384,7 +371,7 @@ $data3 = trim($data3,",");
                        echo($sem); 
                     ?>
                     </span>
-                    <span class="text-muted">Dia na semana</span>
+                    <span class="text-muted"> Dia na semana </span>
                   </p>
                 </div>
                 

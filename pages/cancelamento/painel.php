@@ -6,7 +6,7 @@ $host = 'localhost';
 $user = 'root';
 $pass = '';
 $db = 'rct_teleson';
-$mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
+$conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -45,7 +45,7 @@ $mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Página Inicial</a>
+        <a href="../../grafico_semanal.php" class="nav-link">Página Inicial</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Sugestões</a>
@@ -198,7 +198,7 @@ $mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
           <a href="dist/banco/logout.php" class="brand-link">Sair</a>
         </div>
       </div> -->
-      
+        <hr>
       <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
@@ -226,7 +226,7 @@ $mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/cancelamento/index.php" class="nav-link active">
+                <a href="painel.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p> Painel</p>
                 </a>
@@ -315,11 +315,20 @@ $mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
                 </div>
               </div>
               <div class="card-body">
+                <?php 
+                    $proto = "SELECT id, protocolo FROM atendimentos ORDER BY ID DESC LIMIT 1 ";
+                    $result_pro = mysqli_query($conect, $proto);
+                    $dado = mysqli_fetch_assoc($result_pro);
+                    $id = $dado['id'] + 1;
+                    // $id = number_format($id,2);
+                    $protocolo = $dado['protocolo'].'.'.$id;
+                    ?>
                 <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-right text-lg">Calculo de cancelamento</span>
-                    <span></span>
-                  </p>
+                  <h3 class="d-flex flex-column">
+                    <!-- <span class="text-right text-lg">Protocolo: </span> -->
+                    <span> Protocolo: <?php echo($protocolo); ?></span>
+                  </h3>
+                  <hr>
                   <p class="ml-auto d-flex flex-column text-left">
                     <span class="text-primary">
                         <i class="fas fa-calendar" aria-hidden="true"></i>
@@ -376,18 +385,31 @@ $mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
                                 <div class = "RadioFibra" style="display:;">
                                     <div class = "form-group col-md-12">
                                         <div class = "form-row">
-                                            <div class ="form-group col-md-12">
-                                                <label for="seleciona_plano"> Selecione o Plano do Cliente: </label>
-                                                <select name="planos" id="seleciona_plano" onclick="selected1(this.value);" class = "form-control" required="required">
-                                                    <option value="" selected> Escolha:</option>
-                                                    <option value="1"> Ligth 5     <tr> - R$ 79,00 </option>
-                                                    <option value="2"> Master 20    - R$ 84,00 </option>
-                                                    <option value="3"> Super 35     - R$ 109,00</option>
-                                                    <option value="4"> Ultra 50     - R$ 149,00 </option>
-                                                    <option value="5"> Hiper 100    - R$ 199,00</option>
-                                                    <option value="al_planos" > Outro Plano</option>
-                                                </select>
-                                            </div>
+                                          <div class="form-group col-md-6">
+                                            <?php $clientes = 'SELECT nome, cpf FROM clientes ';
+                                                  $result_clientes = mysqli_query($conect, $clientes);
+                                                  while($dado = mysqli_fetch_assoc($result_clientes)){
+                                            ?>
+                                            <label>Cliente</label>
+                                            <input autocomplete="off" class="form-control" list="clientes" name="cliente" placeholder="Buscar">
+                                            <datalist id="clientes">
+                                              <option value="<?php echo($dado['cpf'])?>"> <?php echo($dado['nome']);?>
+                                              </option>
+                                            </datalist>
+                                          <?php } ?>
+                                          </div>
+                                          <div class ="form-group col-md-6">
+                                              <label for="seleciona_plano"> Selecione o Plano do Cliente: </label>
+                                              <select name="planos" id="seleciona_plano" onclick="selected1(this.value);" class = "form-control" required="required">
+                                                  <option value="" selected> Escolha:</option>
+                                                  <option value="1"> Ligth 5      - R$ 79,00 </option>
+                                                  <option value="2"> Master 20    - R$ 84,00 </option>
+                                                  <option value="3"> Super 35     - R$ 109,00</option>
+                                                  <option value="4"> Ultra 50     - R$ 149,00 </option>
+                                                  <option value="5"> Hiper 100    - R$ 199,00</option>
+                                                  <option value="al_planos" > Outro Plano</option>
+                                              </select>
+                                          </div>
                                         </div>
                                         <div class = "form-row">
                                             <div class = "form-group col-md-6 center" >

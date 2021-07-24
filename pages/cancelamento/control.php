@@ -10,11 +10,8 @@
     //FORMTAÇÃO DE DATAS
 
     function formata_data_br($data)
-
     {
-
         return date("d/m/Y", strtotime($data));
-
     }
         function days_360($fecha1,$fecha2,$europeo=true) {
       //try switch dates: min to max
@@ -98,229 +95,186 @@
 
                 $dif = $dif / 30 ;
 
-                echo ($dif);
+          
+                $dif = floor($dif);
 
-               	$dif = floor($dif);
+                
 
-               	echo ("<br>".$dif);
+                // SE O CLIENTE NÃO COMPLETOU 12 MÊS DE FIDELIDADE
+                if ($dif == 0) 
+                {
+                    // CLIENTE COMPLETOU NENHUM MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 0;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 12;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 580.00 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	// SE O CLIENTE NÃO COMPLETOU 12 MÊS DE FIDELIDADE
-               	if ($dif == 0) 
-               	{
-               		// CLIENTE COMPLETOU NENHUM MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 0;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 12;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 580.00 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                // SE O CLIENTE NÃO COMPLETOU 11 MÊS DE FIDELIDADE
+                if ($dif == 1) 
+                {
+                    // CLIENTE COMPLETOU 1 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 1;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 11;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 545.20 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               	// SE O CLIENTE NÃO COMPLETOU 11 MÊS DE FIDELIDADE
-               	if ($dif == 1) 
-               	{
-               		// CLIENTE COMPLETOU 1 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 1;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 11;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 545.20 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                // SE O CLIENTE NÃO COMPLETOU 10 MÊS DE FIDELIDADE
+                if ($dif == 2) 
+                {
+                    // CLIENTE COMPLETOU 1 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 2;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 10;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 510.40 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               	// SE O CLIENTE NÃO COMPLETOU 10 MÊS DE FIDELIDADE
-               	if ($dif == 2) 
-               	{
-               		// CLIENTE COMPLETOU 1 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 2;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 10;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 510.40 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                // SE O CLIENTE NÃO COMPLETOU 09 MÊS DE FIDELIDADE
+                if ($dif == 3) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 3;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 9;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 475.60 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               	// SE O CLIENTE NÃO COMPLETOU 09 MÊS DE FIDELIDADE
-               	if ($dif == 3) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 3;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 9;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 475.60 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                // SE O CLIENTE NÃO COMPLETOU 08 MÊS DE FIDELIDADE
+                if ($dif == 4) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 4;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 8;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 440.80 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               	// SE O CLIENTE NÃO COMPLETOU 08 MÊS DE FIDELIDADE
-               	if ($dif == 4) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 4;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 8;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 440.80 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                // SE O CLIENTE NÃO COMPLETOU 07 MÊS DE FIDELIDADE
+                if ($dif == 5) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 5;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 7;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 406.00 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               	// SE O CLIENTE NÃO COMPLETOU 07 MÊS DE FIDELIDADE
-               	if ($dif == 5) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 5;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 7;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 406.00 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                // SE O CLIENTE NÃO COMPLETOU 06 MÊS DE FIDELIDADE
+                if ($dif == 6) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 6;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 6;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 371.20 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               	// SE O CLIENTE NÃO COMPLETOU 06 MÊS DE FIDELIDADE
-               	if ($dif == 6) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 6;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 6;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 371.20 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                    // SE O CLIENTE NÃO COMPLETOU 05 MÊS DE FIDELIDADE
+                if ($dif == 7) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 7;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 5;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 336.40 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               		// SE O CLIENTE NÃO COMPLETOU 05 MÊS DE FIDELIDADE
-               	if ($dif == 7) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 7;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 5;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 336.40 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                    // SE O CLIENTE NÃO COMPLETOU 04 MÊS DE FIDELIDADE
+                if ($dif == 8) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 8;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 4;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 301.60 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               		// SE O CLIENTE NÃO COMPLETOU 04 MÊS DE FIDELIDADE
-               	if ($dif == 8) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 8;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 4;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 301.60 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                    // SE O CLIENTE NÃO COMPLETOU 03 MÊS DE FIDELIDADE
+                if ($dif == 9) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 9;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 3;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 266.80 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               		// SE O CLIENTE NÃO COMPLETOU 03 MÊS DE FIDELIDADE
-               	if ($dif == 9) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 9;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 3;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 266.80 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                    // SE O CLIENTE NÃO COMPLETOU 02 MÊS DE FIDELIDADE
+                if ($dif == 10) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 10;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 2;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 232.00 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               		// SE O CLIENTE NÃO COMPLETOU 02 MÊS DE FIDELIDADE
-               	if ($dif == 10) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 10;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 2;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 232.00 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                    // SE O CLIENTE NÃO COMPLETOU 01 MÊS DE FIDELIDADE
+                if ($dif == 11) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 11;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 1;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 197.20 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               		// SE O CLIENTE NÃO COMPLETOU 01 MÊS DE FIDELIDADE
-               	if ($dif == 11) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 11;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 1;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 197.20 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
+                
+                if ($dif >= 12) 
+                {
+                    // CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
+                    $meses_fidelidade_completados = 12;
+                    // CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
+                    $meses_fidelidade_faltantes = 0;
+                    // VALOR DA FIDELIDADE
+                    $valor_fidelidade = 0.00 ;
+                    // CRIA A VARIÁVEL NA SESSÃO
+                    $_SESSION['fidelidade'] = $valor_fidelidade;
 
-               	}
-               	
-               	if ($dif >= 12) 
-               	{
-               		// CLIENTE COMPLETOU 2 MÊS DE FIDELIDADE
-               		$meses_fidelidade_completados = 12;
-               		// CLIENTE NÃO COMPLETOU 12 MESES DE FIDELIDADE
-               		$meses_fidelidade_faltantes = 0;
-               		// VALOR DA FIDELIDADE
-               		$valor_fidelidade = 0.00 ;
-               		// CRIA A VARIÁVEL NA SESSÃO
-               		$_SESSION['fidelidade'] = $valor_fidelidade;
+                }
 
-               	}
-
-               	echo("<br> FIDELIDADE COMPLETA(MESES)". $meses_fidelidade_completados);
-               	echo("<br> FIDELIDADE FALTANTE(MESES)". $meses_fidelidade_faltantes);
-               	echo("<br> VALOR FIDELIDADE: ". $valor_fidelidade);
+                // echo("<br> FIDELIDADE COMPLETA(MESES)". $meses_fidelidade_completados);
+                // echo("<br> FIDELIDADE FALTANTE(MESES)". $meses_fidelidade_faltantes);
+                // echo("<br> VALOR FIDELIDADE: ". $valor_fidelidade);
     
-                // elseif($meses_fidelidade_faltantes == 3)
 
-                // {
-
-                //     $valor_fidelidade =  ;
-
-                //     // $_SESSION['fidelidade'] = $valor_fidelidade;
-
-                // }
-
-                // elseif($meses_fidelidade_faltantes == 2)
-
-                // {
-
-                //     $valor_fidelidade =  ;
-
-                //     // $_SESSION['fidelidade'] = $valor_fidelidade;
-
-                // }
-
-                // elseif($meses_fidelidade_faltantes == 1)
-
-                // {
-
-                //     $valor_fidelidade =  ;
-
-                //     // $_SESSION['fidelidade'] = $valor_fidelidade;
-
-                // }
-
-                // else
-
-                // {
-
-                //     $meses_fidelidade_completados = 0 ;
-
-                //     $meses_fidelidade_faltantes = 0;
-
-                //     $valor_fidelidade = 0.00;
-
-                //     // $_SESSION['fidelidade'] = $valor_fidelidade;
-
-                // }
 
                 // VERIFICA PAGAMENTO 
                 $dias = days_360($dt_can, $dt_ult);
@@ -340,7 +294,7 @@
 
                     //VARIÁVEL QUE RECEBE O NOME DO PLANO
 
-                    $nome_plano = "Light 5";
+                    $nome_plano = "LIGHT 5";
 
                     //VARIAVEL QUE RECEBE O VALOR DO PLANO
 
@@ -922,7 +876,7 @@
 
                     //VÁRIÁVEL RECEBENDO O NOME DO PLANO ;
 
-                    $nome_plano = "Master 20";
+                    $nome_plano = "MASTER 20";
 
                     //VARIÁVEL RECEBENDO O VALOR DO PLANO ;
 
@@ -1516,7 +1470,7 @@
 
                     //VÁRIÁVEL QUE RECEBE O NOME DO PLANO
 
-                    $nome_plano = "Super 35";
+                    $nome_plano = "SUPER 35";
 
                     //VARÁVEL QUE RECEBE O VALOR DO PLANO
 
@@ -2108,7 +2062,7 @@
 
                     //VARIÁVEL QUE RECEBE O NOME DO PLANO
 
-                    $nome_plano = "Ultra 50";
+                    $nome_plano = "ULTRA 50";
 
                     //VARIÁVEL QUE RECEBE O VALOR DO PLANO
 
@@ -2700,7 +2654,7 @@
 
                     //VARIÁVEL QUE RECEBE O NOME DO PLANO
 
-                    $nome_plano = "Hiper 100";
+                    $nome_plano = "HIPER 100";
 
                     //VARIÁVEL QUE RECEBE O VALOR DO PLANO
 
@@ -3305,8 +3259,9 @@
 
 
                     //VARIAVEL QUE RECEBE O NOME DO PLANO
-
+                    $NameOutherPlan = strtoupper($NameOutherPlan);
                     $nome_plano = $NameOutherPlan;
+
 
                     //VARIÁVEL QUE RECEBE O VALOR DO PLANO
 
@@ -4148,7 +4103,42 @@
 
 
 
+                $host = 'localhost';
+                $user = 'root';
+                $pass = '';
+                $db = 'rct_teleson';
+                $conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
+                $proto = "SELECT id, protocolo FROM atendimentos ORDER BY ID DESC LIMIT 1 ";
+                $result_pro = mysqli_query($conect, $proto);
+                $dado = mysqli_fetch_assoc($result_pro);
+                $id = $dado['id'] + 1;
 
+                // $id = number_format($id,2);
+                $protocolo = $dado['protocolo'].'.'.$id;
+                    
+                // Guarda no banco
+                $cpf_cliente = $_POST['cliente'];
+
+                $dt_ade = implode('-', array_reverse(explode('/', $dt_ade)));
+                $dt_can = implode('-', array_reverse(explode('/', $dt_can)));
+                $dt_ult = implode('-', array_reverse(explode('/', $dt_ult)));
+                $dt_ip_fixo = implode('-', array_reverse(explode('/', $dt_ip_fixo)));
+
+                $adc = "INSERT INTO cancelamentos 
+                (cpf_cliente, plano, valor, dt_ativacao, dt_cancelamento, dt_ultimapaga, dt_adesaoip, fidelidade, valor_fidelidade, dias_uso, valor_diasuso, total_fatura)
+                VALUES 
+                ('$cpf_cliente','$nome_plano', '$valor_plano', '$dt_ade', '$dt_can', '$dt_ult', 'dt_ip_fixo', 
+                 '$meses_fidelidade_faltantes', '$valor_fidelidade', '$dias_uso', '$valor_dias_uso', '$total'  )";
+
+                $result_adc = mysqli_query($conect, $adc);
+                if($result_adc){
+
+                }
+                else{
+                    echo "Erro:" .mysqli_error($conect);
+                }
+
+               
 
                 //ENVIANDO AS VARIÁVEIS PARA A SESSÃO
 
@@ -4248,15 +4238,18 @@
 
                 $_SESSION['total_cliente'] = $total;
 
+                
+                $_SESSION['enviou'] = 0;
 
 
                 // header('location:resultado.php');  
 
                 ?>
 
-                <script type="text/javascript"> window.location.href = "resultado.php" ;</script>
+                <!-- <script type="text/javascript"> window.location.href = "resultado.php" ;</script> -->
 
                 <?php 
+                
 
             } 
 
