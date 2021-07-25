@@ -4112,9 +4112,8 @@
                 $result_pro = mysqli_query($conect, $proto);
                 $dado = mysqli_fetch_assoc($result_pro);
                 $id = $dado['id'] + 1;
-
                 // $id = number_format($id,2);
-                $protocolo = $dado['protocolo'].'.'.$id;
+                $protocolo = 'RCT.'.$id;
                     
                 // Guarda no banco
                 $cpf_cliente = $_POST['cliente'];
@@ -4122,16 +4121,33 @@
                 $dt_ade = implode('-', array_reverse(explode('/', $dt_ade)));
                 $dt_can = implode('-', array_reverse(explode('/', $dt_can)));
                 $dt_ult = implode('-', array_reverse(explode('/', $dt_ult)));
-                $dt_ip_fixo = implode('-', array_reverse(explode('/', $dt_ip_fixo)));
+                $dt_ip_fixo = implode('-', array_reverse(explode('/', $dt_ip_fixo)));   
 
                 $adc = "INSERT INTO cancelamentos 
-                (cpf_cliente, plano, valor, dt_ativacao, dt_cancelamento, dt_ultimapaga, dt_adesaoip, fidelidade, valor_fidelidade, dias_uso, valor_diasuso, total_fatura)
+                (protocolo, cpf_cliente, plano, valor, dt_ativacao, dt_cancelamento, dt_ultimapaga, dt_adesaoip, fidelidade, valor_fidelidade, dias_uso, valor_diasuso, total_fatura)
                 VALUES 
-                ('$cpf_cliente','$nome_plano', '$valor_plano', '$dt_ade', '$dt_can', '$dt_ult', 'dt_ip_fixo', 
+                ('$protocolo', '$cpf_cliente','$nome_plano', '$valor_plano', '$dt_ade', '$dt_can', '$dt_ult', '$dt_ip_fixo', 
                  '$meses_fidelidade_faltantes', '$valor_fidelidade', '$dias_uso', '$valor_dias_uso', '$total'  )";
 
                 $result_adc = mysqli_query($conect, $adc);
                 if($result_adc){
+
+
+                    $guarda_proto = "INSERT INTO atendimentos (protocolo )  VALUES('$protocolo')";
+                    $result_proto = mysqli_query($conect, $guarda_proto);
+
+                    $selec_adesao  = "SELECT SUM(xadesao) as soma_ade FROM grafico_semanal";
+                    $result_adesao = mysqli_query($conect, $selec_adesao);
+
+                    $dado = mysqli_fetch_assoc($result_adesao);
+
+                    echo $dado['soma_ade'];
+
+                   
+
+                    $insert_grafico = "INSERT INTO grafico_semanal (protocolo, semana_dado, xcancelamento, dif_diaria) 
+                    VALUES ('$protocolo', '1') ";
+                    $result_grafico = mysqli_query($conect, $insert_grafico);
 
                 }
                 else{

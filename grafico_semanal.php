@@ -6,26 +6,144 @@ $host = 'localhost';
 $user = 'root';
 $pass = '';
 $db = 'rct_teleson';
-$mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
+$conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
 
-$data1 = '';
-$data2 = '';
-$data3 = '';
+function render($date = null)
+{
+    $current = is_null($date)
+        ? date('w')     
+        : date('w', strtotime($date));
 
-//query to get data from the table
-$sql = "SELECT * FROM cancelamentos ";
-  $result = mysqli_query($mysqli, $sql);
+    $now = is_null($date)
+        ? strtotime('now')
+        : strtotime($date);
 
-//loop through the returned data
-while ($row = mysqli_fetch_array($result)) {
+    $week = [
+        'dom' => '',
+        'sab' => '',
+        'sex' => '',
+        'qui' => '',
+        'qua' => '',
+        'ter' => '',
+        'seg' => ''];   
 
-  $data1 = $data1 . '"'. $row['datax'].'",';
-  $data2 = $data2 . '"'. $row['datay'].'",';
-  $data3 = $data3 . '"'. $row['diff_diaria'].'",';
+    $keys = array_keys($week);
+
+    if ($current > 0)
+    { 
+        $now = strtotime('-'.($current).' day', $now);      
+    }
+
+    for($i = 0; $i < 7; $i++)
+    {
+        $week[$keys[$i]] = date('w', 
+            strtotime("-$i day", $now));  
+
+        if($week[$keys[$i]] == 0){
+          $week[$keys[$i]] = 'Domingo';
+        }
+        if($week[$keys[$i]] == 1){
+          $week[$keys[$i]] = 'Segunda-Feira';
+        }
+        if($week[$keys[$i]] == 2){
+          $week[$keys[$i]] = 'Terça-Feira';
+        }
+        if($week[$keys[$i]] == 3){
+          $week[$keys[$i]] = 'Quarta-Feira';
+        }
+        if($week[$keys[$i]] == 4){
+          $week[$keys[$i]] = 'Quinta-Feira';
+        }
+        if($week[$keys[$i]] == 5){
+          $week[$keys[$i]] = 'Sexta-Feira';
+        }
+        if($week[$keys[$i]] == 6){
+          $week[$keys[$i]] = 'Sábado';
+        }
+           
+    }
+    $week = array_reverse($week);
+    return $week;
 }
-$data1 = trim($data1,",");
-$data2 = trim($data2,",");
-$data3 = trim($data3,",");
+
+$semana = render(date('Y-m-d'));
+
+// foreach ($semana as $key => $value) { 
+  
+//    echo '"'.implode('","' , $semana).'"';
+// }
+
+$data_atual = date('Y-m-d');
+
+// Segunda Feira
+$sql_seg = "SELECT SUM(xadesao) as xadesao FROM grafico_semanal WHERE data_dado BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE() AND semana_dado = '1'";
+$result_seg = mysqli_query($conect, $sql_seg);
+$segunda = '';
+//loop through the returned data
+while ($row = mysqli_fetch_array($result_seg)) {
+  $segunda = $segunda . '"'. $row['xadesao'].'",';
+  // $data4 = $data4 . '"'. $row['data'];
+}
+$segunda = trim($segunda,",");
+
+
+// Terça - Feira
+$sql_ter = "SELECT SUM(xadesao) as xadesao FROM grafico_semanal WHERE data_dado BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE() AND semana_dado = '1'";
+$result_ter = mysqli_query($conect, $sql_ter);
+$terca = '';
+//loop through the returned data
+while ($row = mysqli_fetch_array($result_ter)) {
+  $terca = $terca . '"'. $row['xadesao'].'",';
+  // $data4 = $data4 . '"'. $row['data'];
+}
+$terca = trim($terca,",");
+
+
+
+// Quarta-Feira
+$sql_qua = "SELECT SUM(xadesao) as xadesao FROM grafico_semanal WHERE data_dado BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE() AND semana_dado = '3'";
+$result_qua = mysqli_query($conect, $sql_qua);
+$quarta = '';
+//loop through the returned data
+while ($row = mysqli_fetch_array($result_qua)) {
+  $quarta = $quarta . '"'. $row['xadesao'].'",';
+  // $data4 = $data4 . '"'. $row['data'];
+}
+$quarta = trim($quarta,",");
+
+
+// Quinta-Feira
+$sql_qui = "SELECT SUM(xadesao) as xadesao FROM grafico_semanal WHERE data_dado BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE() AND semana_dado = '4'";
+$result_qui = mysqli_query($conect, $sql_qui);
+$quinta = '';
+//loop through the returned data
+while ($row = mysqli_fetch_array($result_qui)) {
+  $quinta = $quinta . '"'. $row['xadesao'].'",';
+  // $data4 = $data4 . '"'. $row['data'];
+}
+$quinta = trim($quinta,",");
+
+// Sexta-Feira
+$sql_sex = "SELECT SUM(xadesao) as xadesao FROM grafico_semanal WHERE data_dado BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE() AND semana_dado = '4'";
+$result_sex = mysqli_query($conect, $sql_sex);
+$sexta = '';
+//loop through the returned data
+while ($row = mysqli_fetch_array($result_sex)) {
+  $sexta = $sexta . '"'. $row['xadesao'].'",';
+  // $data4 = $data4 . '"'. $row['data'];
+}
+$sexta = trim($sexta,",");
+
+// Sábado
+$sql_sab = "SELECT SUM(xadesao) as xadesao FROM grafico_semanal WHERE data_dado BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE() AND semana_dado = '4'";
+$result_sab = mysqli_query($conect, $sql_sab);
+$sabado = '';
+//loop through the returned data
+while ($row = mysqli_fetch_array($result_sab)) {
+  $sabado = $sabado . '"'. $row['xadesao'].'",';
+  // $data4 = $data4 . '"'. $row['data'];
+}
+$sabado = trim($sabado,",");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -201,7 +319,7 @@ $data3 = trim($data3,",");
       <img src="dist/img/r.png" alt="RCT Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">RCT</span>
     </a>  
-    <a href="dist/banco/logout.php" class="brand-link">
+    <a href="dist/banco/logout.php" class="brand-link text-center">
       <span class=" font-weight-light">Sair</span>
     </a>
 
@@ -234,23 +352,41 @@ $data3 = trim($data3,",");
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               <li class="nav-item menu">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Adesões
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link ">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p> Adicionar consulta</p>
+                    </a>
+                  </li>
+              </li>
+            </ul>
+        
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Cancelamento
+                Cancelamentos
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/cancelamento/painel.php" class="nav-link ">
+                <a href="pages/cancelamento/painel.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p> Painel</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="grafico_semanal.php" class="nav-link active">   
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gráfico Semanal</p>
                 </a>
@@ -432,10 +568,18 @@ $data3 = trim($data3,",");
 <!-- Script do banco -->
 <script>
         var ctx = document.getElementById("myChart").getContext('2d');
-          var xValues = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
-          var yCan = [<?php echo $data1 ?>];
-          var yMet = [<?php echo $data2 ?>];
-          var yDif = [<?php echo $data3 ?>];
+          
+          var xValues = [<?php echo '"'.implode('","' , $semana).'"';?>];
+          var yCan = ['34'];
+          var yAde = [
+          <?php echo ($segunda);?>,
+          <?php echo ($terca);  ?>,
+          <?php echo ($quarta); ?>,
+          <?php echo ($quinta); ?>,
+          <?php echo ($sexta); ?>,
+          <?php echo ($sabado); ?>
+           ];
+          var yDif = ["8"];
           var myChart = new Chart(ctx, {
           type: 'bar',
           data: {
@@ -449,14 +593,20 @@ $data3 = trim($data3,",");
 
               },
               {
-                label: 'Meta',
+                label: 'Adesões',
                 backgroundColor: 'green',
-                data: yMet
+                data: yAde
+              },
+              {
+
+                label: 'Meta',
+                backgroundColor: '#4169E1',
+                data: yDif
               },
               {
 
                 label: 'Média',
-                backgroundColor: '#ff8000',
+                backgroundColor: '#00FF7F',
                 data: yDif
               }
               

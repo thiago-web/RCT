@@ -30,7 +30,7 @@
     <!-- lockscreen credentials (contains the form) -->
     <form action="dist/php/login/login-control.php" method="POST" class="lockscreen-credentials">
       <div class="input-group">
-        <input type="password" name="senha" class="form-control" placeholder="Senha">
+        <input type="password" autocomplete="off" name="senha" class="form-control" placeholder="Senha">
         <div class="input-group-append">
           <button type="submit" class="btn">
             <i class="fas fa-arrow-right text-muted"></i>

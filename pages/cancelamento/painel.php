@@ -178,11 +178,11 @@ $conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
      <!-- Brand Logo -->
-    <a href="painel.php" class="brand-link">
+    <a href="painel.php" class="brand-link text">
       <img src="../../dist/img/r.png" alt="RCT Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">RCT</span>
     </a>  
-    <a href="../../dist/banco/logout.php" class="brand-link">
+    <a href="../../dist/banco/logout.php" class="brand-link text-center">
       <span class=" font-weight-light">Sair</span>
     </a>
     
@@ -216,11 +216,29 @@ $conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               <li class="nav-item menu">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Adesões
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link ">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p> Adicionar consulta</p>
+                    </a>
+                  </li>
+              </li>
+            </ul>
+        
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Cancelamento
+                Cancelamentos
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -247,30 +265,6 @@ $conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gráfico Anual</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/uplot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>uPlot</p>
                 </a>
               </li>
             </ul>
@@ -315,13 +309,15 @@ $conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
                 </div>
               </div>
               <div class="card-body">
-                <?php 
+                <?php
+                    
                     $proto = "SELECT id, protocolo FROM atendimentos ORDER BY ID DESC LIMIT 1 ";
                     $result_pro = mysqli_query($conect, $proto);
                     $dado = mysqli_fetch_assoc($result_pro);
+
                     $id = $dado['id'] + 1;
                     // $id = number_format($id,2);
-                    $protocolo = $dado['protocolo'].'.'.$id;
+                    $protocolo = 'RCT.'.$id;
                     ?>
                 <div class="d-flex">
                   <h3 class="d-flex flex-column">
@@ -391,7 +387,7 @@ $conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
                                                   while($dado = mysqli_fetch_assoc($result_clientes)){
                                             ?>
                                             <label>Cliente</label>
-                                            <input autocomplete="off" class="form-control" list="clientes" name="cliente" placeholder="Buscar">
+                                            <input autocomplete="off" class="form-control" list="clientes" name="cliente" placeholder="Buscar" required="">
                                             <datalist id="clientes">
                                               <option value="<?php echo($dado['cpf'])?>"> <?php echo($dado['nome']);?>
                                               </option>
@@ -455,17 +451,21 @@ $conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
                                             </div>
                                         </div>
                                         <div class = "form-row">
-                                            <div class = "form-group col-md-12">
-                                                <div class = "IpFixo" style = "display:none;">
-                                                    <label for="adesao_ip">Adesão do IP Fixo</label>
-                                                    <input type="date" name = "dt_adesao_ipfixo" id = "req_ip_ade" class = "form-control" >
-                                                </div>
-                                            </div>
+                                          <div class = "form-group col-md-4"></div>
+                                          <div class = "form-group col-md-4"></div>
+                                          <div class = "form-group col-md-4">
+                                              <div class = "IpFixo" style = "display:none;">
+                                                  <label for="adesao_ip">Adesão do IP Fixo</label>
+                                                  <input type="date" name = "dt_adesao_ipfixo" id = "req_ip_ade" class = "form-control" >
+                                              </div>
+                                          </div>
                                         </div>
                                         <div class = "form-row">
-                                            <div class = "form-group col-md-12">
-                                                <button class="btn btn-primary btn-block" type = "submit" onclick = "">CALCULAR</button>
+                                          <div class="form-group col-md-4"></div>
+                                            <div class = "form-group col-md-4">
+                                                <button class="btn btn-primary btn-block" type = "submit" onclick = "">Calcular</button>
                                             </div>
+                                            <div class="form-group col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -523,7 +523,7 @@ $conect = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
                                 </div>
                                 <div class = "form-row">
                                     <div class = "form-group col-md-12">
-                                        <button class="btn btn-primary btn-block" type = "submit" onclick = "">CALCULAR</button>
+                                        <button class="btn btn-primary btn-block" type = "submit" onclick = "">Calculae</button>
                                     </div>
                                 </div>
                             </div>
